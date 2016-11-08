@@ -1,8 +1,9 @@
 module.exports = {
 	presets: [
-		require('babel-preset-es2015'),
 		require('babel-preset-react'),
-		require('babel-preset-stage-3') // async/await + exponential operator
+		require('babel-preset-es2015'),
+		require('babel-preset-es2016'),
+		require('babel-preset-es2017')
 	],
 	plugins: [
 		require('babel-plugin-transform-runtime'), // async/await runtime methods
