@@ -22,5 +22,8 @@
   },
   "peerDependencies": {
     "@babel/core": "^7.1.6"
+  },
+  "peerDependenciesMeta": {
+    "@babel/core": { "optional": true }
   }
 }
