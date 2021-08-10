@@ -18,7 +18,13 @@ module.exports = function () {
 			^ This behavior is ok for now, it's pretty similar to what we
 			had before (only es-2015).
 			*/
-			require('@babel/preset-env'),
+			[require('@babel/preset-env'), {
+				useBuiltIns: 'entry',
+				corejs: '3.16.1',
+				targets: {
+					'ie': '11'
+				}
+			}],
 			require('@babel/preset-react'),
 			require('@babel/preset-typescript')
 		],
