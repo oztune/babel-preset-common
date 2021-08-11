@@ -9,18 +9,45 @@
 module.exports = function () {
 	return {
 		presets: [
-			/*
-			> Without any configuration options, @babel/preset-env behaves
-			> exactly the same as @babel/preset-es2015, @babel/preset-es2016
-			> and @babel/preset-es2017 together.
-			- Via https://babeljs.io/docs/en/next/babel-preset-env.html:
+			// NOTE: This comment is old and no longer relevant. Keeping
+			// it here for reference.
+			//
+			// > Without any configuration options, @babel/preset-env behaves
+			// > exactly the same as @babel/preset-es2015, @babel/preset-es2016
+			// > and @babel/preset-es2017 together.
+			// - Via https://babeljs.io/docs/en/next/babel-preset-env.html:
 
-			^ This behavior is ok for now, it's pretty similar to what we
-			had before (only es-2015).
-			*/
+			// ^ This behavior is ok for now, it's pretty similar to what we
+			// had before (only es-2015).
+			//			
 			[require('@babel/preset-env'), {
+				// This is for polyfills.
+				// Converts all instances of import 'core-js'
+				// to multiple import 'core-js/xyz' calls which
+				// it decides on based on the targets below.
+				//
+				// In appfigure-site-react we import core-js
+				// in polyfills.js. For the node bundles we
+				// do polyfills as a separate script in the
+				// template, and since we don't use core-js
+				// there at all, this is a no-op there.
+				//
+				// Note that if we used 'usage' instead it would
+				// break on the node bundles since it will always
+				// inject core-js imports automatically. Also, that
+				// option tries to analyze the code to decide which
+				// feature are used, and I believe it's not always
+				// right, so we have two reasons not to use it.
 				useBuiltIns: 'entry',
+				// Used by 'useBuiltIns' above so it knows exactly
+				// which features to expect and use.
 				corejs: '3.16.1',
+				// Dictates what syntax it should compile to (es5
+				// in this case) as well as what polyfills will be
+				// used from core-js.
+				// I picked just ie 11 because it should catch
+				// everything. In the future we can compile this
+				// list more scientifically from analytics stats.
 				targets: {
 					'ie': '11'
 				}
