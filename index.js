@@ -52,7 +52,9 @@ module.exports = function () {
 					'ie': '11'
 				}
 			}],
-			require('@babel/preset-react'),
+			[require('@babel/preset-react'), {
+				'runtime': 'automatic'
+			}],
 			require('@babel/preset-typescript')
 		],
 		plugins: [
